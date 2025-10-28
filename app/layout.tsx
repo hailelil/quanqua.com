@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Ethiopic } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import StructuredData from "./components/StructuredData";
 
@@ -87,6 +88,25 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${notoSansEthiopic.variable} antialiased`}
       >
+        {/* AdSense Script - Loads early like GoDaddy header placement */}
+        <Script
+          id="adsbygoogle-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-3072038849045349",
+                enable_page_level_ads: true
+              });
+            `,
+          }}
+        />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3072038849045349"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <StructuredData />
         {children}
       </body>
